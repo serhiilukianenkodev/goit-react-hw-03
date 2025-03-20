@@ -1,4 +1,4 @@
-const SearchBox = ({ filter, onChange }) => {
+const SearchBox = ({ filter, onFilter }) => {
   return (
     <>
       <h2>Find contacts by name</h2>
@@ -6,7 +6,7 @@ const SearchBox = ({ filter, onChange }) => {
         type="text"
         name=""
         onChange={(evt) => {
-          onChange(evt.target.value);
+          onFilter(evt.target.value);
         }}
         value={filter}
       />
