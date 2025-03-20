@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
 import "./App.css";
@@ -16,9 +17,14 @@ function App() {
       .includes(filter.trim().toLocaleLowerCase());
   });
 
+  const addNewContact = (newContact) => {
+    setContacts([...contacts, newContact]);
+  };
+
   return (
     <>
       <h1>Phonebook</h1>
+      <ContactForm onSubmit={addNewContact} />
       <SearchBox onChange={setFilter} filter={filter} />
       <ContactList contacts={filteredContacts} />
     </>
