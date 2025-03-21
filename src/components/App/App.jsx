@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
 import "./App.css";
+import saveToLs from "../../utils/saveToLs";
+import getFromLs from "../../utils/getFromLs";
 
-import defaultContacts from "../../data/defaultContacts.json";
+import defaultContacts from "../../assets/data/defaultContacts.json";
 
 function App() {
-  const [contacts, setContacts] = useState(defaultContacts);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = getFromLs("contacts");
+
+    return savedContacts && savedContacts.length !== 0
+      ? savedContacts
+      : defaultContacts;
+  });
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    saveToLs("contacts", contacts);
+  }, [contacts]);
 
   const filteredContacts = contacts.filter((contact) => {
     return contact.name
